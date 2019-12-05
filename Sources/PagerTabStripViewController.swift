@@ -109,6 +109,13 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         childController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         containerView.addSubview(childController.view)
         childController.didMove(toParent: self)
+        
+        if UIView.userInterfaceLayoutDirection(for: view.semanticContentAttribute) == .rightToLeft {
+            containerView.transform = CGAffineTransform(scaleX: -1, y: 1)
+            for controller in viewControllers {
+                controller.view.transform = CGAffineTransform(scaleX: -1, y: 1)
+            }
+        }
     }
 
     open override func viewWillAppear(_ animated: Bool) {
